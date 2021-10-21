@@ -6,7 +6,6 @@ const jwt = require("../services/jwt");
 
 // modules
 const bcrypt = require("bcrypt-nodejs");
-const paginate = require("mongoose-pagination");
 const fs = require("fs");
 const path = require("path");
 
@@ -249,9 +248,6 @@ const uploadImg = (req, res) => {
 
 const getUserImg = (req, res) => {
 
-  // se obtiene id del usuario
-  // se comprueba su auth
-  // se lee su imagen de disco y se devuelve con res.sendfile
   const userId = req.params.userid;
 
   if (userId !== req.user.sub) {
@@ -269,7 +265,6 @@ const getUserImg = (req, res) => {
         err,
       });
     }
-    console.log('imagen de usuario ', user.image)
     res.sendFile(path.resolve('./assets/imgs/avatar/'+ user.image), err => {
       if (err) {
         return res.status(500).send({
